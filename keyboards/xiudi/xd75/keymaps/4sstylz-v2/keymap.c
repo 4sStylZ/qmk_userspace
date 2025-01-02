@@ -33,10 +33,10 @@ enum custom_keycodes {
   SLC_WRD
 };
 
+// Screen lock feature
 enum combo_events {
   SCR_LCK
 };
-
 const uint16_t PROGMEM lock_combo[] = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
 combo_t key_combos[] = {COMBO(lock_combo, SCR_LCK)};
 
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [_QW] = LAYOUT_ortho_5x15( /* QWERTY */
-    QK_GESC, KC_1   , KC_2   , KC_3   , KC_4   , KC_5  , KC_DEL , KC_6  , KC_7   , KC_8   , KC_9   , KC_0    , KC_MINUS, KC_EQUAL, KC_PSCR,
-    KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T  , KC_BSPC, KC_Y  , KC_U   , KC_I   , KC_O   , KC_P    , KC_LBRC , KC_RBRC , KC_HOME,
-    MO(_FN), KC_A   , KC_S   , KC_D   , KC_F   , KC_G  , KC_ENT , KC_H  , KC_J   , KC_K   , KC_L   , KC_SCLN , KC_QUOT , KC_NUHS , KC_END ,
-    KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B  , ALT_TAB, KC_N  , KC_M   , KC_COMM, KC_DOT , KC_SLSH , KC_RSFT , MO(_FN) , KC_PGUP,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_WBAK, KC_WFWD, KC_SPC, KC_APP , KC_SPC, KC_LEFT, KC_UP  , KC_DOWN, KC_RIGHT, KC_RALT , KC_RCTL , KC_PGDN
+    QK_GESC, KC_1   , KC_2   , KC_3   , KC_4        , KC_5  , KC_DEL , KC_6  , KC_7   , KC_8   , KC_9   , KC_0    , KC_MINUS, KC_EQUAL, KC_PSCR,
+    KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R        , KC_T  , KC_BSPC, KC_Y  , KC_U   , KC_I   , KC_O   , KC_P    , KC_LBRC , KC_RBRC , KC_HOME,
+    MO(_FN), KC_A   , KC_S   , KC_D   , KC_F        , KC_G  , KC_ENT , KC_H  , KC_J   , KC_K   , KC_L   , KC_SCLN , KC_QUOT , KC_NUHS , KC_END ,
+    KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V        , KC_B  , ALT_TAB, KC_N  , KC_M   , KC_COMM, KC_DOT , KC_SLSH , KC_RSFT , MO(_FN) , KC_PGUP,
+    KC_LCTL, KC_LGUI, KC_LALT, KC_WBAK, KC_KP_MINUS , KC_SPC, KC_APP , KC_SPC, KC_LEFT, KC_UP  , KC_DOWN, KC_RIGHT, KC_RALT , KC_RCTL , KC_PGDN
   ),
 
 /* FUNCTION
@@ -90,83 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______    , _______, SLC_ALL     , SLC_ROW     , SLC_WRD     , KC_BRIU, BL_STEP, _______, _______, LSFT(KC_7) , LSFT(KC_8) , LSFT(KC_9), KC_8    , _______, _______,
     _______    , _______, LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), KC_BRID, BL_BRTG, _______, _______, LSFT(KC_4) , LSFT(KC_5) , LSFT(KC_6), KC_7    , _______, QK_BOOT,
     _______    , _______, KC_MUTE     , KC_VOLD     , KC_VOLU     , KC_MPLY, RGB_TOG, _______, _______, LSFT(KC_1) , LSFT(KC_2) , LSFT(KC_3), KC_ENT  , _______, _______,
-    _______    , _______, _______     , _______     , _______     , _______, RGB_MOD, _______, _______, LSFT(KC_0) , KC_00      , KC_V      , _______ , _______, _______
+    _______    , _______, _______     , KC_WBAK     , KC_WFWD     , _______, RGB_MOD, _______, _______, LSFT(KC_0) , KC_00      , KC_V      , _______ , _______, _______
   )
 };
 
-/**
- * Macro for selecting all the text in the document.
- * Usual shortcut : Ctrl+A.
- *
- * @param keyrecord_t *record
- *
- * @return void
- */
-void select_all(keyrecord_t *record) {
-    if (record->event.pressed) {
-        tap_code16(C(KC_A));
-    }
-}
-
-/**
- * Macro for selecting the current row.
- *
- * @param keyrecord_t *record
- *
- * @return void
- */
-void select_row(keyrecord_t *record) {
-    if (record->event.pressed) {
-        tap_code(KC_HOME);
-        tap_code16(S(KC_END));
-    }
-}
-
-/**
- * Macro for selecting the current word.
- * Usage : You need to have the cursor into the word or directly at the right.
- *
- *
- * Usual shortcut : Ctrl+A.
- *
- * @param keyrecord_t *record
- *
- * @return void
- */
-void select_word(keyrecord_t *record) {
-    if (record->event.pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_LEFT);
-        tap_code16(S(KC_RGHT));
-        unregister_code(KC_LCTL);
-    }
-}
-
-/**
- * Macro for inserting two 0 with keypad.
- * Be carefull to have the keypad lock enabled
- *
- * @param keyrecord_t *record
- *
- * @return void
- */
-void insert_00(keyrecord_t *record) {
-    if (record->event.pressed) {
-        tap_code16(S(KC_0));
-        tap_code16(S(KC_0));
-    }
-}
-
-/**
- * Bépo Windows lock
- *
- * @param keyrecord_t *record
- *
- * @return void
- */
-void windows_lock(void) {
-    tap_code16(G(KC_O));
-}
+#include "custom_features.c"
 
 // Processing all the key pressed.
 // Alt+tab.
@@ -232,66 +160,7 @@ void matrix_scan_user(void) {     // The very important timer.
   }
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LAYER_ON(_FN)) {
-        capslock_led_on();
-    } else {
-        capslock_led_off();
-    }
-}
-
-/**
- * Défault led state and colors
- */
-void setDefaultDisplay(void) {
-    _delay_ms(10);
-    rgblight_setrgb_at(180, 35, 0, 0);
-    _delay_ms(10);
-    rgblight_setrgb_at(200, 35, 0, 1);
-    _delay_ms(10);
-    rgblight_setrgb_at(220, 35, 0, 2);
-    _delay_ms(10);
-    rgblight_setrgb_at(220, 35, 0, 3);
-    _delay_ms(10);
-    rgblight_setrgb_at(200, 35, 0, 4);
-    _delay_ms(10);
-    rgblight_setrgb_at(180, 35, 0, 5);
-}
-
-/**
- * Colors for the FN layer
- */
-void setFNDisplay(void) {
-    _delay_ms(10);
-    rgblight_setrgb_at(145, 45, 0, 0);
-    _delay_ms(10);
-    rgblight_setrgb_at(160, 45, 0, 1);
-    _delay_ms(10);
-    rgblight_setrgb_at(175, 45, 0, 2);
-    _delay_ms(10);
-    rgblight_setrgb_at(190, 45, 0, 3);
-    _delay_ms(10);
-    rgblight_setrgb_at(205, 45, 0, 4);
-    _delay_ms(10);
-    rgblight_setrgb_at(220, 45, 0, 5);
-}
-
-void keyboard_post_init_user (void) {
-  setDefaultDisplay();
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _FN:
-        setFNDisplay();
-        break;
-
-    default: //  for any other layers, or the default layer
-        setDefaultDisplay();
-        break;
-    }
-  return state;
-}
+#include "led_management.c"
 
 #pragma once
 
@@ -300,8 +169,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_PGDN
 #define LSPO_KEYS KC_LSFT, KC_TRNS, KC_HOME
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_END
-
-#define TAPPING_TERM 175
 
 #define BACKLIGHT_BREATHING
 #undef RGBLIGHT_EFFECT_BREATHING
