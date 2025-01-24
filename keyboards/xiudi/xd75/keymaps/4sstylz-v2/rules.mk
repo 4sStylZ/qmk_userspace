@@ -16,8 +16,7 @@
 COMBO_ENABLE     = yes # Enable combo for special function when using multiple keys at once.
 BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE  = yes # Enable WS2812 RGB underlight.
-
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = no  # Enable Bootmagic Lite
 MOUSEKEY_ENABLE  = no  # Mouse keys
 EXTRAKEY_ENABLE  = yes # Audio control and System control
 CONSOLE_ENABLE   = no  # Console for debug

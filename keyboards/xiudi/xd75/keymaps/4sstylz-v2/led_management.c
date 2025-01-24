@@ -43,10 +43,6 @@ void setFNDisplay(void) {
     rgblight_setrgb_at(220, 45, 0, 5);
 }
 
-void keyboard_post_init_user (void) {
-  setDefaultDisplay();
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _FN:

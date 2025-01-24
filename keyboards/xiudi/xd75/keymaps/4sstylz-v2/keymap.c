@@ -14,8 +14,7 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  */
 #include QMK_KEYBOARD_H
-#include "action_util.h"
-
+// #include "action_util.h"
 
 // Implement Super-alt↯tab
 // See https://docs.qmk.fm/#/feature_macros?id=super-alt↯tab
@@ -161,6 +160,12 @@ void matrix_scan_user(void) {     // The very important timer.
 }
 
 #include "led_management.c"
+
+void keyboard_post_init_user (void) {
+  debug_enable=true;
+  debug_matrix=true;
+  setDefaultDisplay();
+}
 
 #pragma once
 
